@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mahadi | Freelance Video Editor & Freelancer Portfolio - Ferdus Alom Mahadi</title>
-<meta name="google-site-verification" content="IGB8GUespf3anwGpOH1IYATITYNpY8ypzTQWcnvbPcw" />
+<meta name="google-site-verification" content="lGB8GUespf3anwGpOH1IYATlTyNpY8ypzTQWcnvbPcw" />
 <meta name="description" content="Mahadi (Ferdus Alom Mahadi) is a freelancer and freelance video editor: short-form video editing, YouTube SEO, thumbnail design and data entry. Explore the Mahadi portfolio and hire a trusted freelancer.">
 <meta name="keywords" content="Mahadi, Ferdus Alom Mahadi, Mahadi Portfolio, Freelance, Freelancer, Freelancer Mahadi, Freelance Video Editor, Short-Form Video Editor, YouTube SEO Specialist, Anime AMV Editor, Data Entry Specialist, Thumbnail Designer, Hire Freelancer">
 <meta name="author" content="Ferdus Alom Mahadi">
@@ -476,7 +476,7 @@ if(MD<.5){gl_FragColor=vec4(halo(uv)*I,1.);return;}
 vec2 sp=vec2(.12,.3)+vec2(sin(T*.11),cos(T*.09))*.06+(M-.5)*.1*vec2(1.,-1.);vec2 off=vec2(0.);float hl=0.;
 if(RG>.5){vec2 rc=vec2(.95,-.1)+(M-.5)*.05*vec2(1.,-1.);float d=length(uv-rc)-(.95+.03*sin(T*.1));float m=smoothstep(.055,0.,abs(d));vec2 nd=normalize(uv-rc+1e-4);off-=nd*m*d*.9;hl+=m*pow(max(0.,dot(nd,normalize(vec2(-.6,.7)))),3.)*.55+m*.07;
 vec2 rc2=vec2(1.55,.5);float d2=length(uv-rc2)-1.45;float m2=smoothstep(.04,0.,abs(d2));vec2 n2=normalize(uv-rc2+1e-4);off-=n2*m2*d2*.9;hl+=m2*pow(max(0.,dot(n2,normalize(vec2(-.5,.6)))),3.)*.4;}
-if(S1>.5){vec2 d=uv-sp;float rd=.17,l=length(d);if(l<rd){float z=sqrt(1.-(l/rd)*(l/rd));off-=d*(1.-z)*1.6;hl+=pow(1.-z,2.5)*.9+pow(max(0.,1.-length(d/rd-vec2(-.35,.4))*2.6),2.)*1.2;}hl+=smoothstep(.02,0.,abs(l-rd))*.45;}
+if(S1>.5){float rd=.17,l=length(uv-sp);if(l<rd){float z=sqrt(1.-(l/rd)*(l/rd));off-=(uv-sp)*(1.-z)*1.6;hl+=pow(1.-z,2.5)*.9+pow(max(0.,1.-length((uv-sp)/rd-vec2(-.35,.4))*2.6),2.)*1.2;}hl+=smoothstep(.02,0.,abs(l-rd))*.45;}
 vec3 c=fld(uv+off);c+=vec3(1.,.82,.86)*hl;c*=I;float vg=smoothstep(1.3,.2,length(uv*vec2(.8,1.)));c*=.35+.65*vg;gl_FragColor=vec4(c,1.);}`;
 const mk=(t,x)=>{const o=g.createShader(t);g.shaderSource(o,x);g.compileShader(o);return o},pr=g.createProgram();
 g.attachShader(pr,mk(g.VERTEX_SHADER,'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));g.attachShader(pr,mk(g.FRAGMENT_SHADER,FS));g.linkProgram(pr);
