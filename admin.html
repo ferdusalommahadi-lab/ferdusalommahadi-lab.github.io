@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+:root{--c1:#f0314f;--mut:#94a3b8;--line:rgba(255,255,255,.12);--glass:rgba(255,255,255,.05)}
+body{background:#0b0709;color:#e2e8f0;height:100vh;overflow:hidden}
+#lg{max-width:380px;margin:18vh auto;padding:28px;background:#140d11;border:1px solid var(--line);border-radius:20px}
+#app{display:none;flex-direction:column;height:100vh}
+#pvw{flex:0 0 40%;border-bottom:2px solid var(--c1);background:#000}#pvw iframe{width:100%;height:100%;border:0}
+#adm{flex:1;overflow-y:auto;padding:12px}
+@media(min-width:900px){#app{flex-direction:row}#pvw{flex:1;border-bottom:0;border-right:2px solid var(--c1)}#adm{flex:0 0 440px}}
+h3{color:#fff;margin-bottom:6px}label{display:block;color:var(--mut);font-size:.8rem;margin:10px 0 4px}
+input,select,textarea{width:100%;background:rgba(0,0,0,.5);border:1px solid var(--line);color:#fff;padding:11px 13px;border-radius:10px;outline:none;font-size:.9rem}
+option{background:#140d11}input[type=color]{height:44px;padding:3px}input[type=range]{padding:0}
+.ab{background:var(--glass);border:1px solid var(--line);color:#fff;padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:600}
+.ab.pr{background:var(--c1);border-color:var(--c1)}.ab.dn{background:#7f1d1d}
+.ar{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.pre-row{display:flex;gap:8px;flex-wrap:wrap}.sw{width:58px;height:34px;border-radius:8px;border:2px solid #fff3;cursor:pointer}
+.am{margin-top:12px;font-size:.88rem;padding:10px;border-radius:10px;display:none}.am.ok{display:block;background:#14532d}.am.er{display:block;background:#7f1d1d}
+</style></head><body>
+<div id="lg"><h3>Admin Login</h3><label>Password</label><input type="password" id="apw" autocomplete="current-password"><div class="am" id="lgm"></div>
+<div style="display:flex;gap:8px;margin-top:14px"><button class="ab pr" style="flex:1" onclick="adminLogin()">Login</button><a class="ab" href="index.html" style="text-decoration:none">Back</a></div></div>
+<div id="app"><div id="pvw"><iframe id="fr" src="index.html?preview=1" title="Site preview"></iframe></div><div id="adm"></div></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const REPO='mahadiahmednbj-code/mahadi-portfolio',FILE='content.json',HASH='bc3a03b0d3defff86cda9bc9427f4a5520a9a0d51b3081a381dcccd8a4a0d656',SALT='mhd-2026-';
+let S,TX,CFG0,ICON,D,C,TG='about',dirty=0;
+const cl=o=>JSON.parse(JSON.stringify(o)),pkL=p=>p.t+' ('+p.p+')',W=n=>(...a)=>S[n](...a);
+const applyTheme=W('applyTheme'),applyTexts=W('applyTexts'),applyCfg=W('applyCfg'),applyHide=W('applyHide'),renderVids=W('renderVids'),renderSvc=W('renderSvc'),renderPk=W('renderPk'),renderFaq=W('renderFaq'),renderLinks=W('renderLinks'),renderReviews=W('renderReviews');
+async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+
+function msg(t,k){const m=$('am');if(!m)return;m.textContent=t;m.className='am '+k}
+$('apw').addEventListener('keypress',e=>{if(e.key==='Enter')adminLogin()});
+async function adminLogin(){const h=await sha(SALT+$('apw').value),m=$('lgm');if(h!==HASH){m.textContent='Wrong password';m.className='am er';return}
+const w=$('fr').contentWindow;let n=0;while(!(w.SITE&&w.SITE.ready)&&n<120){await new Promise(r=>setTimeout(r,100));n++}
+if(!(w.SITE&&w.SITE.ready)){m.textContent='The site preview did not load. Refresh and try again.';m.className='am er';return}
+S=w.SITE;TX=S.TX;CFG0=S.CFG0;ICON=S.ICON;D=cl(S.C);C=cl(D);S.setC(D);$('lg').style.display='none';$('app').style.display='flex';adminPanel('t');$('adm').addEventListener('input',()=>dirty=1);$('adm').addEventListener('change',()=>dirty=1)}
+function adminClose(){if(dirty&&!confirm('You have unsaved changes. Leave without saving?'))return;dirty=0;location.href='index.html'}
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
+const PRE=[['VeloSphere Purple',['#8b5cf6','#4c1d95','#05020f']],['Argus Blue',['#3b82f6','#1e3a8a','#02030c']],['ClipCut',['#f0314f','#b4143c','#040204']],['Rose',['#f43f5e','#8b5cf6','#0a0810']],['Ocean',['#3b82f6','#06b6d4','#060b14']],['Forest',['#22c55e','#14b8a6','#06100b']],['Sunset',['#f97316','#eab308','#100a05']],['Purple',['#a855f7','#ec4899','#0d0714']]];
+const GN={header:'Top menu',about:'Hero (top of page)',x:'Stats boxes',promo:'Videos',services:'Services',tools:'Tools',pricing:'Pricing packages',analyzer:'Send Project form',faq:'FAQ',reviews:'Reviews heading',footer:'Footer'};
+const TABS=[['t','Texts (all text on the site)'],['videos','Videos'],['services','Services'],['pkgs','Packages & Prices'],['faqs','FAQ'],['bot','Chat Bot Replies'],['links','Links & Icons'],['r','Reviews'],['d','Colors & Design'],['a','Background & Animation'],['c','Contact, Tools & SEO'],['m','Profile Photo'],['v','Show / Hide Sections'],['s','Save Key']];
+const LF={videos:{n:'Video',nw:{t:'New video',d:'',src:'',btn:'',sv:'',pk:''},f:[['t','Title'],['d','Description','a'],['src','YouTube link, or video file name'],['up','Or upload a video from your phone (max 25 MB)','vu'],['btn','Button text (empty = no button)'],['sv','Button fills form service','sv'],['pk','Button fills form package','pk']]},
+services:{n:'Service',nw:{i:'⭐',t:'New service',d:''},f:[['i','Icon (number, letter or emoji)'],['t','Title'],['d','Description','a']]},
+pkgs:{n:'Package',nw:{t:'New package',p:'$0',f:'',b:'Select',sv:'',star:false},f:[['t','Package name'],['p','Price (like $25)'],['f','What is included (one per line)','a'],['b','Button text'],['sv','Service','sv'],['star','Highlight this package','c']]},
+faqs:{n:'Question',nw:{q:'',a:''},f:[['q','Question'],['a','Answer','a']]},
+bot:{n:'Chat reply',nw:{k:'',a:''},f:[['k','If the visitor message contains any of these words (comma separated)'],['a','Chat answer','a']]},
+links:{n:'Link',nw:{icon:'web',url:'https://'},f:[['icon','Icon','ic'],['url','Link address'],['lg','Or upload your own logo','lg']]}};
+function fld(key,i,f,o){const k=f[0],l=f[1],t=f[2],v=o[k]==null?'':o[k],at=`data-ls="${key}" data-i="${i}" data-f="${k}"`,L=`<label>${l}</label>`;
+if(t=='a')return L+`<textarea rows="3" ${at}>${esc(v)}</textarea>`;
+if(t=='c')return `<label style="display:flex;gap:10px;align-items:center;color:#fff"><input type="checkbox" style="width:20px" ${at} ${v?'checked':''}>${l}</label>`;
+if(t=='sv'||t=='pk'||t=='ic'){const ops=t=='sv'?[''].concat(D.services.map(s=>s.t)):t=='pk'?[''].concat(D.pkgs.map(pkL)):Object.keys(ICON);return L+`<select ${at}>${ops.map(x=>`<option ${x==v?'selected':''}>${esc(x)}</option>`).join('')}</select>`}
+if(t=='vu')return L+`<input type="file" accept="video/*" onchange="upVid(this,${i})">`;
+if(t=='lg')return L+`<input type="file" accept="image/*" onchange="upLogo(this,${i})">`+(o.img?`<button class="ab" style="margin-top:6px" onclick="D.links[${i}].img='';renderLinks(D);adminPanel('links')">Remove my logo</button>`:'');
+return L+`<input ${at} value="${esc(v)}">`}
+function listTab(key){const c=LF[key];let h='<p style="color:var(--mut);font-size:.8rem">Edit, delete or add. Changes show on the site instantly. Press Save to make them permanent.</p>';
+D[key].forEach((o,i)=>{h+=`<div class="ar"><b style="color:#fff">${c.n} ${i+1}</b>`+c.f.filter(f=>!(key=='links'&&o.k&&f[0]=='url')).map(f=>fld(key,i,f,o)).join('')+(key=='links'&&o.k?'<p style="color:var(--mut);font-size:.8rem">This link uses your email / WhatsApp from the Contact tab.</p>':'')+`<div style="display:flex;gap:8px;margin-top:10px"><button class="ab" onclick="lMv('${key}',${i},-1)">↑</button><button class="ab" onclick="lMv('${key}',${i},1)">↓</button><button class="ab dn" onclick="lDel('${key}',${i})">Delete</button></div></div>`});
+return h+`<button class="ab pr" onclick="lAdd('${key}')">+ Add ${c.n}</button>`}
+const RN={videos:renderVids,services:renderSvc,pkgs:renderPk,faqs:renderFaq,links:renderLinks};
+function lAdd(k){D[k].push(cl(LF[k].nw));RN[k]&&RN[k](D);adminPanel(k)}
+function lDel(k,i){if(confirm('Delete this item?')){D[k].splice(i,1);RN[k]&&RN[k](D);adminPanel(k)}}
+function lMv(k,i,d){const j=i+d,a=D[k];if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];RN[k]&&RN[k](D);adminPanel(k)}
+function adminPanel(tab){const a=$('adm');a.className='dock';document.body.style.overflow='';
+let h=`<div class="ap"><h3>Admin Panel</h3><select id="tabsel" style="margin:8px 0">${TABS.map(t=>`<option value="${t[0]}" ${tab==t[0]?'selected':''}>${t[1]}</option>`).join('')}</select>`;
+if(tab=='t'){const first={};TX.forEach(x=>{if(!(x.o in first))first[x.o]=x.g});
+h+=`<label>Choose a section, then edit any text. Changes show on the site instantly.</label><select id="tg">${Object.keys(GN).map(k=>`<option value="${k}" ${k==TG?'selected':''}>${GN[k]}</option>`).join('')}</select>`;
+Object.keys(first).filter(o=>first[o]==TG).forEach((o,i)=>{const v=D.texts[o]!==undefined?D.texts[o]:o;h+=`<label>${i+1}</label><textarea rows="${v.length>70||v.includes('\n')?3:1}" data-x="${esc(o)}">${esc(v)}</textarea>`})}
+else if(LF[tab])h+=listTab(tab);
+else if(tab=='r'){D.reviews.forEach((r,i)=>{h+=`<div class="ar"><label>Client name</label><input data-i="${i}" data-f="name" value="${esc(r.name)}"><label>Rating</label><select data-i="${i}" data-f="score">${['10/10','9/10','8/10','7/10','5/10'].map(x=>`<option ${x==r.score?'selected':''}>${x}</option>`).join('')}</select><label>Review</label><textarea rows="3" data-i="${i}" data-f="text">${esc(r.text)}</textarea><button class="ab dn" style="margin-top:10px" onclick="rvDel(${i})">Delete</button></div>`});h+=`<button class="ab pr" onclick="rvAdd()">+ Add Review</button>`}
+else if(tab=='d'){h+='<label>Ready-made styles</label><div class="pre-row">'+PRE.map((p,i)=>`<div class="sw" title="${p[0]}" style="background:linear-gradient(135deg,${p[1][0]},${p[1][1]})" onclick="thPre(${i})"></div>`).join('')+'</div>';
+[['c1','Main color (buttons, highlights)'],['c3','Second color (gradient)'],['bg','Background color']].forEach(x=>{h+=`<label>${x[1]}</label><input type="color" data-t="${x[0]}" value="${D.theme[x[0]]}">`});
+h+=`<label>Font style</label><select data-t="font">${[['modern','Modern'],['elegant','Elegant (serif)'],['tech','Tech (code)'],['round','Rounded']].map(x=>`<option value="${x[0]}" ${D.theme.font==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select><label>Corner roundness</label><input type="range" min="0" max="36" data-t="rad" value="${D.theme.rad}">`}
+else if(tab=='a'){const A=Object.assign({},S.ANIM0,D.anim);D.anim=A;
+const sel=(k,l,o)=>`<label>${l}</label><select data-an="${k}">${o.map(x=>`<option value="${x[0]}" ${A[k]==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select>`,rng=(k,l,mn,mx,st)=>`<label>${l}</label><input type="range" data-an="${k}" min="${mn}" max="${mx}" step="${st}" value="${A[k]}">`;
+h+='<p style="color:var(--mut);font-size:.8rem">Changes show in the preview instantly. Press Save to make them permanent.</p>'+sel('mode','Background style',[['halo','Cinematic glowing halo (default)'],['glass','Marbled glass flow'],['soft','Soft glow (lightweight)'],['off','Off']])+sel('sphere','Glowing eclipse orb',[['on','On'],['off','Off']])+sel('rings','Glowing halo ring',[['on','On'],['off','Off']])+rng('speed','Speed',0.3,3,0.1)+rng('intensity','Brightness',0,100,5)+sel('parallax','Background moves with finger / mouse',[['on','On'],['off','Off']])+sel('reveal','Scroll animation style',[['rise','Rise up'],['fade','Fade in'],['zoom','Zoom in'],['none','None']])+sel('cursor','Custom mouse cursor (computer)',[['on','On'],['off','Off']])}
+else if(tab=='c'){const g=Object.assign({},CFG0,D.cfg);[['email','Email address'],['wa','WhatsApp number (country code + digits only)'],['yt','YouTube channel link (hero button)'],['title','Browser tab title (also Google title)'],['desc','Google description (SEO)']].forEach(x=>{h+=`<label>${x[1]}</label><input data-c="${x[0]}" value="${esc(g[x[0]])}">`});
+[['roles','Typing job titles under your name (one per line)'],['tools','Tools chips (one per line)'],['marquee','Moving keyword line (one per line)']].forEach(x=>{h+=`<label>${x[1]}</label><textarea rows="5" data-cl="${x[0]}">${esc(g[x[0]].join('\n'))}</textarea>`})}
+else if(tab=='m'){h+=`<label>Change profile photo (uploads straight to your site)</label><input type="file" accept="image/*" onchange="upPhoto(this)">`}
+else if(tab=='v'){const h2=D.hide||{};D.hide=h2;h+='<label>Tick the sections you want to show</label>';[['promo','Videos'],['services','Services'],['tools','Tools'],['pricing','Pricing'],['analyzer','Send Project form'],['faq','FAQ'],['reviews','Reviews']].forEach(x=>{h+=`<label style="display:flex;gap:10px;align-items:center;color:#fff;font-size:.95rem"><input type="checkbox" style="width:20px" data-h="${x[0]}" ${h2[x[0]]?'':'checked'}>${x[1]}</label>`})}
+else{h+=`<label>GitHub token (saved only in this browser)</label><input type="password" id="tk" value="${esc(localStorage.getItem('mhd_tk')||'')}" placeholder="github_pat_...">`}
+h+=`<div class="am" id="am"></div><div style="display:flex;gap:8px;margin-top:16px"><button class="ab pr" style="flex:1" onclick="adminSave()">Save (make permanent)</button><button class="ab" onclick="adminClose()">Close</button></div></div>`;a.innerHTML=h;
+$('tabsel').addEventListener('change',e=>adminPanel(e.target.value));
+a.querySelectorAll('[data-ls]').forEach(e=>{const f=()=>{const o=D[e.dataset.ls][e.dataset.i];o[e.dataset.f]=e.type=='checkbox'?e.checked:e.value;RN[e.dataset.ls]&&RN[e.dataset.ls](D)};e.addEventListener('input',f);e.addEventListener('change',f)});
+a.querySelectorAll('[data-i]:not([data-ls])').forEach(e=>e.addEventListener('input',()=>{D.reviews[e.dataset.i][e.dataset.f]=e.value;renderReviews()}));
+a.querySelectorAll('[data-t]').forEach(e=>{const f=()=>{D.theme[e.dataset.t]=e.value;applyTheme(D.theme)};e.addEventListener('input',f);e.addEventListener('change',f)});
+a.querySelectorAll('[data-x]').forEach(e=>e.addEventListener('input',()=>{const o=e.dataset.x;if(e.value===o)delete D.texts[o];else D.texts[o]=e.value;applyTexts(D.texts)}));
+a.querySelectorAll('[data-c]').forEach(e=>e.addEventListener('input',()=>{D.cfg[e.dataset.c]=e.value;applyCfg(D.cfg);renderLinks(D)}));
+a.querySelectorAll('[data-cl]').forEach(e=>e.addEventListener('input',()=>{D.cfg[e.dataset.cl]=e.value.split('\n').map(x=>x.trim()).filter(Boolean);applyCfg(D.cfg)}));
+a.querySelectorAll('[data-h]').forEach(e=>e.addEventListener('change',()=>{D.hide[e.dataset.h]=!e.checked;applyHide(D.hide)}));
+a.querySelectorAll('[data-an]').forEach(e=>{const f=()=>{D.anim[e.dataset.an]=e.type=='range'?+e.value:e.value;S.applyAnim(D.anim)};e.addEventListener('input',f);e.addEventListener('change',f)});
+const tg=$('tg');if(tg)tg.addEventListener('change',()=>{TG=tg.value;adminPanel('t')});
+const t=$('tk');if(t)t.addEventListener('input',()=>localStorage.setItem('mhd_tk',t.value.trim()))}
+function upLogo(inp,i){const f=inp.files[0];if(!f)return;const im=new Image();im.onload=()=>{const k=Math.min(1,128/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,im.width*k);c.height=Math.max(1,im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);D.links[i].img=c.toDataURL('image/png');renderLinks(D);adminPanel('links');msg('Logo added. Press Save.','ok')};im.onerror=()=>msg('Not a valid image','er');im.src=URL.createObjectURL(f)}
+function upVid(inp,i){const f=inp.files[0];if(!f)return;if(f.size>25*1048576){msg('This video is over 25 MB. Upload it on GitHub (Add file, Upload files) and type its file name here.','er');return}
+msg('Uploading video, please wait...','ok');const r=new FileReader();r.onload=async()=>{try{const p='videos/'+Date.now()+'-'+f.name.replace(/[^\w.-]/g,'_');await ghPut(p,r.result.split(',')[1],'Add video');D.videos[i].src=p;renderVids(D);adminPanel('videos');msg('Video uploaded. Press Save. It plays on the site in 1-2 minutes.','ok')}catch(e){msg(e.message,'er')}};r.readAsDataURL(f)}
+function rvAdd(){D.reviews.unshift({name:'',score:'10/10',text:''});renderReviews();adminPanel('r')}
+function rvDel(i){if(confirm('Delete this review?')){D.reviews.splice(i,1);renderReviews();adminPanel('r')}}
+function thPre(i){const p=PRE[i][1];Object.assign(D.theme,{c1:p[0],c3:p[1],bg:p[2]});applyTheme(D.theme);adminPanel('d')}
+async function ghPut(path,b64,message){const tk=(localStorage.getItem('mhd_tk')||'').trim();if(!tk)throw new Error('First paste your GitHub token in the Save Key tab.');
+const u=`https://api.github.com/repos/${REPO}/contents/${path}`,hd={Authorization:'Bearer '+tk,Accept:'application/vnd.github+json'};let sh;
+const g=await fetch(u+'?ref=main',{headers:hd,cache:'no-store'});if(g.ok)sh=(await g.json()).sha;else if(g.status!==404)throw new Error('Token problem ('+g.status+'). Check the token.');
+const b={message,branch:'main',content:b64};if(sh)b.sha=sh;const p=await fetch(u,{method:'PUT',headers:hd,body:JSON.stringify(b)});if(!p.ok)throw new Error('Save failed ('+p.status+'). Token needs Contents: Read and write.')}
+function upPhoto(inp){const f=inp.files[0];if(!f)return;msg('Uploading photo...','ok');const im=new Image();
+im.onload=async()=>{try{const k=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+await ghPut('profile.jpg',c.toDataURL('image/jpeg',.9).split(',')[1],'Update profile photo');D.cfg.pv=Date.now();msg('Photo uploaded. Now press Save. It shows on the site in 1-2 minutes.','ok')}catch(e){msg(e.message,'er')}};
+im.onerror=()=>msg('This file is not a valid image','er');im.src=URL.createObjectURL(f)}
+async function adminSave(){D.reviews=D.reviews.filter(r=>r.name.trim()&&r.text.trim());msg('Saving...','ok');
+try{await ghPut(FILE,btoa(unescape(encodeURIComponent(JSON.stringify(D,null,1)))),'Update site content');C=JSON.parse(JSON.stringify(D));dirty=0;msg('Saved! It will be live for everyone in 1-2 minutes.','ok')}catch(e){msg(e.message,'er')}}
+
+</script></body></html>
