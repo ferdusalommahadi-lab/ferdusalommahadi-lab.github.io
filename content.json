@@ -1,0 +1,176 @@
+{
+ "reviews": [],
+ "theme": {
+  "c1": "#f43f5e",
+  "c3": "#8b5cf6",
+  "bg": "#0a0810",
+  "font": "modern",
+  "rad": "20",
+  "grid": "on"
+ },
+ "texts": {},
+ "cfg": {},
+ "hide": {},
+ "anim": {
+  "mode": "halo",
+  "speed": 1,
+  "intensity": 70,
+  "sphere": "on",
+  "rings": "on",
+  "parallax": "on",
+  "reveal": "rise",
+  "cursor": "on"
+ },
+ "videos": [
+  {
+   "t": "Looking for Video Editor?",
+   "d": "High-retention editing, smooth transitions, dynamic captions, and cinematic color grading for YouTube & Reels.",
+   "src": "video-editing-promo.mp4",
+   "btn": "Order Video Editing",
+   "sv": "Video Editing",
+   "pk": "Standard Video Edit ($45)"
+  },
+  {
+   "t": "Professional Data Entry",
+   "d": "Accurate Excel typing, web research, copy-paste operations, and structured database management with 100% precision.",
+   "src": "data-entry-promo.mp4",
+   "btn": "Order Data Entry",
+   "sv": "Data Entry",
+   "pk": "Data Entry Standard ($30)"
+  }
+ ],
+ "services": [
+  {
+   "i": "01",
+   "t": "Video Editing",
+   "d": "Professional YouTube videos, brand promos, and storytelling with seamless cuts."
+  },
+  {
+   "i": "02",
+   "t": "YouTube SEO",
+   "d": "Channel growth optimization, keyword targeting, metadata, and search ranking."
+  },
+  {
+   "i": "03",
+   "t": "Short Video Editing",
+   "d": "High-retention Shorts, Reels, and TikTok edits designed for maximum engagement."
+  },
+  {
+   "i": "04",
+   "t": "Thumbnail Design",
+   "d": "High-CTR custom thumbnails that attract attention and boost view rates."
+  },
+  {
+   "i": "05",
+   "t": "Data Entry",
+   "d": "Accurate, clean, and organized data management services with 100% precision."
+  }
+ ],
+ "pkgs": [
+  {
+   "t": "Basic Video Edit",
+   "p": "$15",
+   "f": "Essential cuts & transitions\nBasic sound mixing\n1 Day Delivery\n1 Revision",
+   "b": "Select Basic Video",
+   "sv": "Video Editing",
+   "star": false
+  },
+  {
+   "t": "Standard Video Edit",
+   "p": "$45",
+   "f": "Advanced editing & color grading\nSubtitles / Dynamic captions\n2 Days Delivery\n3 Revisions",
+   "b": "Select Standard Video",
+   "sv": "Video Editing",
+   "star": true
+  },
+  {
+   "t": "Premium Video Edit",
+   "p": "$90",
+   "f": "Full cinematic edit & motion graphics\nHigh-CTR Thumbnail included\n3 Days Delivery\n10 Revisions",
+   "b": "Select Premium Video",
+   "sv": "Video Editing",
+   "star": false
+  },
+  {
+   "t": "Data Entry Basic",
+   "p": "$10",
+   "f": "Excel / Google Sheets typing\nCopy-Paste operations\n100 Rows data\n1 Day Delivery",
+   "b": "Select Data Basic",
+   "sv": "Data Entry",
+   "star": false
+  },
+  {
+   "t": "Data Entry Standard",
+   "p": "$30",
+   "f": "Data cleaning & formatting\nPDF to Excel conversion\nWeb research (300-400 Rows)\n2 Days Delivery",
+   "b": "Select Data Standard",
+   "sv": "Data Entry",
+   "star": true
+  },
+  {
+   "t": "Data Entry Premium",
+   "p": "$70",
+   "f": "Large database management\nE-commerce product upload\n1000+ Rows precision work\n10 Revisions",
+   "b": "Select Data Premium",
+   "sv": "Data Entry",
+   "star": false
+  }
+ ],
+ "faqs": [
+  {
+   "q": "1. Who is Ferdus Alom Mahadi?",
+   "a": "Ferdus Alom Mahadi is a professional video editor, YouTube SEO specialist, short-form creator, and data entry expert."
+  },
+  {
+   "q": "2. What services do you offer?",
+   "a": "I offer professional video editing, YouTube SEO, thumbnail design, accurate data entry management, and custom digital services."
+  },
+  {
+   "q": "3. Can I request custom work outside these packages?",
+   "a": "Yes! Select \"Custom Project / Other Work\" in the Send Project form."
+  },
+  {
+   "q": "4. What is the typical turnaround time?",
+   "a": "Standard projects are usually delivered within 1 to 3 business days depending on complexity."
+  },
+  {
+   "q": "5. How do the pricing packages work?",
+   "a": "Video editing ($15-$90) and data entry ($10-$70) have fixed scopes, revision limits, and custom options."
+  },
+  {
+   "q": "6. Can I request custom video editing styles?",
+   "a": "Yes! Whether you prefer Alex Hormozi style dynamic captions or cinematic storytelling, I customize edits to your vision."
+  },
+  {
+   "q": "7. How can I contact you directly?",
+   "a": "WhatsApp: 01617321349, email: ferdusalommahadi@gmail.com, or use the icons in the header."
+  },
+  {
+   "q": "8. Is data entry handled securely?",
+   "a": "Yes, all data entry and research tasks are handled with 100% precision and strict confidentiality."
+  },
+  {
+   "q": "9. What software do you use?",
+   "a": "Adobe Premiere Pro, After Effects, and CapCut Pro."
+  },
+  {
+   "q": "10. Can I read feedback from other clients?",
+   "a": "Yes, see the Client Reviews section below."
+  }
+ ],
+ "links": [
+  {
+   "k": "email",
+   "icon": "mail"
+  },
+  {
+   "k": "wa",
+   "icon": "wa"
+  },
+  {
+   "icon": "li",
+   "url": "https://www.linkedin.com/in/ferdus-alom-mahadi-40a1ab44a"
+  }
+ ],
+ "bot": []
+}
