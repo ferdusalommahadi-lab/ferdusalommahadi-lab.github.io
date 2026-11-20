@@ -1,9 +1,9 @@
 {
  "reviews": [],
  "theme": {
-  "c1": "#f43f5e",
-  "c3": "#8b5cf6",
-  "bg": "#0a0810",
+  "c1": "#3b82f6",
+  "c3": "#1e3a8a",
+  "bg": "#02030c",
   "font": "modern",
   "rad": "20",
   "grid": "on"
